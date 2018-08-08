@@ -35,6 +35,7 @@ namespace ExcelConversionApp
     public partial class MainWindow : Window
     {
         NotifyPropertyChange notifyPropertyChange = new NotifyPropertyChange();
+        CellMapping cellMap;
 
         public bool nameIsSingleCell = true;
         
@@ -65,6 +66,20 @@ namespace ExcelConversionApp
         {
             InitializeComponent();
         }
+        
+        public void StartParsingProcedure()
+        {
+            if(FileOpenPath == "" || FileWritePath == "")
+            {
+                Console.WriteLine("A file path is not set.");
+                return;
+            }
+            
+            // Constructor needs input mapping from GUI
+            CellMapping cell = new CellMapping
+            
+        }
+
 
         private void Button_FileToOpen_Click(object sender, RoutedEventArgs e)
         {
@@ -100,10 +115,7 @@ namespace ExcelConversionApp
         }
         
         public void ParseFile()
-        {
-            // Constructor needs input mapping from GUI
-            CellMapping cell = new CellMapping(0, 0, 0, 0, 0, 0, 0);
-        
+        {      
             ExcelReader reader = new ExcelReader();
             ExcelWriter writer = new ExcelWriter();
             
@@ -116,6 +128,21 @@ namespace ExcelConversionApp
                 writer.CreateWorkBook(FileWritePath, contacts);
             }
         
+        }
+        
+                
+        public void SetMapping()
+        {
+            List<int> mappingList = new List<int>();
+        
+            if(nameIsSingleCell) // mapping constrcut r
+            {
+                cellMap = new CellMapping(0, 0, 0, 0, 0); // name is combined
+            }
+            else
+            {
+                cellMap = new CellMapping(0, 0, 0, 0, 0, 0); // fir and last name already separated
+            }
         }
     }
 
@@ -262,9 +289,17 @@ namespace ExcelConversionApp
     public class CellMapping
     {
         
-        public CellMapping(int nameDex, int firstNameDex, int lastNameDex, int emailDex, int propertyDex, int phoneDex, int roleDex)
+        public CellMapping(int nameDex, int emailDex, int propertyDex, int phoneDex, int roleDex)
         {
             nameIndex = nameDex;
+            emailIndex = emailDex;
+            propertyIndex = propertyDex;
+            phoneIndex = phoneDex;
+            roleIndex = roleDex;
+        }
+        
+        public CellMapping(int firstNameDex, int lastNameDex, int emailDex, int propertyDex, int phoneDex, int roleDex)
+        {
             firstNameIndex = firstNameDex;
             lastNameIndex = lastNameDex;
             emailIndex = emailDex;
@@ -272,6 +307,7 @@ namespace ExcelConversionApp
             phoneIndex = phoneDex;
             roleIndex = roleDex;
         }
+        
         
         public int nameIndex;
         
