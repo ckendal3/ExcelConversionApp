@@ -1,0 +1,18 @@
+﻿<Window x:Class="ExcelConversionApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ExcelConversionApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Button x:Name="Button_FileToOpen" Content="Open File" HorizontalAlignment="Left" Margin="51,54,0,0" VerticalAlignment="Top" Width="83" Click="Button_FileToOpen_Click"/>
+        <TextBlock x:Name="fileOpenPathTextBlock" HorizontalAlignment="Left" Margin="51,29,0,0" TextWrapping="Wrap" Text = "{Binding FileOpenPath}" VerticalAlignment="Top" Width="83" Height="25" FontSize="10"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="51,10,0,0" TextWrapping="Wrap" Text="File To Parse:" VerticalAlignment="Top" Width="83"/>
+        <Button x:Name="Button_FileToWrite" Content="Open File" HorizontalAlignment="Left" Margin="382,54,0,0" VerticalAlignment="Top" Width="83" Click="Button_FileToOpen_Click"/>
+        <TextBlock x:Name="fileWritePathTextBlock" HorizontalAlignment="Left" Margin="382,29,0,0" TextWrapping="Wrap" Text = "{Binding FileOpenPath}" VerticalAlignment="Top" Width="83" Height="25" FontSize="10"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="382,10,0,0" TextWrapping="Wrap" Text="File To Create:" VerticalAlignment="Top" Width="83"/>
+        <TextBox HorizontalAlignment="Left" Height="64" Margin="134,10,0,0" TextWrapping="Wrap" Text="Wonderful Excel Parser" VerticalAlignment="Top" Width="248" TextAlignment="Center" FontWeight="Bold" FontSize="20"/>
+    </Grid>
+</Window>
