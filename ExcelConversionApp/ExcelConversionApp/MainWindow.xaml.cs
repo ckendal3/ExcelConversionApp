@@ -36,6 +36,8 @@ namespace ExcelConversionApp
     {
         NotifyPropertyChange notifyPropertyChange = new NotifyPropertyChange();
 
+        public bool nameIsSingleCell = true;
+        
         private string fileOpenPath = "None Selected";
         public string FileOpenPath
         {
@@ -96,6 +98,25 @@ namespace ExcelConversionApp
                 Console.WriteLine("File path: " + fileOpenPath);
             }
         }
+        
+        public void ParseFile()
+        {
+            // Constructor needs input mapping from GUI
+            CellMapping cell = new CellMapping(0, 0, 0, 0, 0, 0, 0);
+        
+            ExcelReader reader = new ExcelReader();
+            ExcelWriter writer = new ExcelWriter();
+            
+            // Collected data
+            List<ContactData> contacts = reader.ReadWorkBook(FileOpenPath);
+            
+            // if there is data, write it to the new file
+            if(contacts.count > 0)
+            {
+                writer.CreateWorkBook(FileWritePath, contacts);
+            }
+        
+        }
     }
 
     /// <summary>
@@ -103,8 +124,10 @@ namespace ExcelConversionApp
     /// </summary>
     public class ExcelReader
     {
-        public void ReadWorkBook(string path, List<ContactData> contactList)
+        public List<ContactData> ReadWorkBook(string path, CellMapping map)
         {
+            List<ContactData> contactList = new List<ContactData>();
+            
             FileStream file = File.OpenRead(path);
             IWorkbook workbook = new XSSFWorkbook(path);
 
@@ -113,28 +136,34 @@ namespace ExcelConversionApp
             // for every row (contact) in the sheet
             for(int i = 0; i < workbook.GetSheetAt(0).LastRowNum; i++)
             {
-                tmpContact = new ContactData();
                 tmpRow = workbook.GetSheetAt(0).GetRow(i);
 
-                tmpContact.firstName = tmpRow.GetCell(0).StringCellValue;
-                tmpContact.lastName = tmpRow.GetCell(0).StringCellValue;
-                tmpContact.emailAddress = tmpRow.GetCell(0).StringCellValue;
-                tmpContact.propertyAddress = tmpRow.GetCell(0).StringCellValue;
-                tmpContact.phoneNumber = tmpRow.GetCell(0).StringCellValue;
-                tmpContact.role = (EMarketRole)tmpRow.GetCell(0).NumericCellValue;
-
-
-                // manually going to have to count till a better system is found
-
-
-
-                var bloop = tmpRow.CopyCell(i, 0).StringCellValue;
+                // Get data from specified cells
+                // User input can determine which cell to get the data from
+                
+                if(nameIsSingleCell)
+                {
+                    // Create contact constructor   
+                    tmpContact = newContactData(tmpRow.GetCell(map.nameIndex).StringCellValue, // combined name
+                                                tmpRow.GetCell(map.emailIndex).StringCellValue,
+                                                tmpRow.GetCell(map.emailIndex).StringCellValue,
+                                                tmpRow.GetCell(map.propertyIndex).StringCellValue,
+                                                tmpRow.GetCell(map.phoneIndex).StringCellValue,
+                                                tmpRow.GetCell(map.role).NumericCellValue);
+                }
+                else
+                {
+                    tmpContact = new ContactData(tmpRow.GetCell(map.firstNameIndex).StringCellValue, // first name
+                                                 tmpRow.GetCell(map.lastNameIndex).StringCellValue, //last name
+                                                 tmpRow.GetCell(map.emailIndex).StringCellValue,
+                                                 tmpRow.GetCell(map.propertyIndex).StringCellValue,
+                                                 tmpRow.GetCell(map.phoneIndex).StringCellValue,
+                                                 tmpRow.GetCell(map.role).NumericCellValue);
+                }
                 contactList.Add(tmpContact);
-            }
-
-                    
-
+            }     
         }
+        return contactList;
     }
 
     /// <summary>
@@ -142,14 +171,7 @@ namespace ExcelConversionApp
     /// </summary>
     public class ExcelWriter
     {
-        List<ContactData> contactList;
-
-        public void GetAllContactData(List<ContactData> inData)
-        {
-            contactList = inData;
-        }
-
-        public void CreateWorkBook(string path)
+        public void CreateWorkBook(string path, List<ContactData> inData)
         {
             IWorkbook workbook = new XSSFWorkbook();
             ISheet s1 = workbook.CreateSheet("Sheet1");
@@ -158,11 +180,11 @@ namespace ExcelConversionApp
             ContactData contact;
 
             // For every contact - create new row
-            for (int i = 0; i < contactList.Count; i++)
+            for (int i = 0; i < inData.Count; i++)
             {
                 tmpRow = s1.CreateRow(i);
 
-                contact = contactList[i];
+                contact = inData[i];
 
                 // Fill sheet with all needed information
                 tmpRow.CreateCell(0).SetCellValue(contact.firstName);
@@ -186,8 +208,6 @@ namespace ExcelConversionApp
     {
         public ContactData(string inFirstName, string inLastName, string inEmail, string inProperty, string inPhone, int inRole)
         {
-            dataElements = 6;
-
             firstName = inFirstName;
             lastName = inLastName;
             emailAddress = inEmail;
@@ -198,8 +218,6 @@ namespace ExcelConversionApp
 
         public ContactData(string inName, string inEmail, string inProperty, string inPhone, int inRole)
         {
-            dataElements = 6;
-
             string tmp = inName.Trim();
             string[] nameSplit= tmp.Split(new char[] {' '}, 2);
 
@@ -210,13 +228,6 @@ namespace ExcelConversionApp
             phoneNumber = PhoneNumber(inPhone);
             role = (EMarketRole)inRole;
         }
-
-        public ContactData()
-        {
-
-        }
-
-        int dataElements;
 
         public string firstName;
         public string lastName;
@@ -247,6 +258,31 @@ namespace ExcelConversionApp
         buyer = 1,
         seller = 2
     };
+    
+    public class CellMapping
+    {
+        
+        public CellMapping(int nameDex, int firstNameDex, int lastNameDex, int emailDex, int propertyDex, int phoneDex, int roleDex)
+        {
+            nameIndex = nameDex;
+            firstNameIndex = firstNameDex;
+            lastNameIndex = lastNameDex;
+            emailIndex = emailDex;
+            propertyIndex = propertyDex;
+            phoneIndex = phoneDex;
+            roleIndex = roleDex;
+        }
+        
+        public int nameIndex;
+        
+        public int firstNameIndex;
+        public int lastNameIndex;
+        public int emailIndex;
+        public int propertyIndex;
+        public int phoneIndex;
+        public int roleIndex;
+        
+    }
 
 
     public class NotifyPropertyChange : INotifyPropertyChanged
