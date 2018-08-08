@@ -27,6 +27,13 @@ using System.Collections;
 using System.Drawing;
 using NPOI.XSSF.UserModel;
 
+
+/*
+ * Spreadsheets are zero based - (A, 1) is (0, 0)
+ * 
+ * 
+ * 
+ */
 namespace ExcelConversionApp
 {
     /// <summary>
@@ -46,7 +53,9 @@ namespace ExcelConversionApp
             set
             {
                 fileOpenPath = value;
+                Console.WriteLine("File open path: " + value);
                 notifyPropertyChange.NotifyPropertyChanged("fileOpenPath");
+                
             }
         }
 
@@ -58,6 +67,7 @@ namespace ExcelConversionApp
             {
                 fileWritePath = value;
                 notifyPropertyChange.NotifyPropertyChanged("fileWritePath");
+                Console.WriteLine("File write to path: " + value);
             }
         }
 
@@ -69,30 +79,62 @@ namespace ExcelConversionApp
         
         public void StartParsingProcedure()
         {
-            if(FileOpenPath == "" || FileWritePath == "")
+            
+            if(FileOpenPath == "None Selected" || FileWritePath == "None Selected")
             {
                 Console.WriteLine("A file path is not set.");
                 return;
             }
-            
-            // Constructor needs input mapping from GUI
-            CellMapping cell = new CellMapping
-            
+
+            SetMapping();
+
+            ParseFile();
+
         }
 
 
         private void Button_FileToOpen_Click(object sender, RoutedEventArgs e)
         {
-            FindFilePath(ref fileOpenPath, ref fileOpenPathTextBlock);
+            FindFilePath(out string newPath, ref fileOpenPathTextBlock);
+            if(!newPath.Equals(""))
+            {
+                FileOpenPath = newPath;
+            }
+            
         }
 
         private void Button_FileToWrite_Click(object sender, RoutedEventArgs e)
         {
-            FindFilePath(ref fileWritePath, ref fileWritePathTextBlock);
+            FindFilePath(out string newPath, ref fileWritePathTextBlock);
+            if (!newPath.Equals(""))
+            {
+                FileWritePath = newPath;
+            }
         }
 
-        public void FindFilePath(ref string filePath, ref TextBlock textBlock)
+        private void Button_StartConversion_Click(object sender, RoutedEventArgs e)
         {
+            StartParsingProcedure();
+        }
+
+        private void Button_IsNameCombined_Click(object sender, RoutedEventArgs e)
+        {
+            if(nameIsSingleCell == true)
+            {
+                Button_IsNameCombined.Content = "No";
+                nameIsSingleCell = false;
+            }
+            else
+            {
+                Button_IsNameCombined.Content = "Yes";
+                nameIsSingleCell = true;
+            }
+        }
+
+        public void FindFilePath(out string newPath, ref TextBlock textBlock)
+        {
+            newPath = "";
+
             //Open file browser
             Microsoft.Win32.OpenFileDialog fileDialog = new Microsoft.Win32.OpenFileDialog();
 
@@ -105,12 +147,11 @@ namespace ExcelConversionApp
             if (result.HasValue && result.Value)
             {
                 // Open Document
-                filePath = fileDialog.FileName;
+                newPath = fileDialog.FileName;
 
-                int index = fileOpenPath.LastIndexOf('\\');
+                int index = newPath.LastIndexOf('\\');
 
-                textBlock.Text = FileOpenPath.Substring(index + 1);
-                Console.WriteLine("File path: " + fileOpenPath);
+                textBlock.Text = newPath.Substring(index + 1);
             }
         }
         
@@ -120,10 +161,10 @@ namespace ExcelConversionApp
             ExcelWriter writer = new ExcelWriter();
             
             // Collected data
-            List<ContactData> contacts = reader.ReadWorkBook(FileOpenPath);
+            List<ContactData> contacts = reader.ReadWorkBook(FileOpenPath, cellMap, nameIsSingleCell);
             
             // if there is data, write it to the new file
-            if(contacts.count > 0)
+            if(contacts.Count > 0)
             {
                 writer.CreateWorkBook(FileWritePath, contacts);
             }
@@ -134,14 +175,23 @@ namespace ExcelConversionApp
         public void SetMapping()
         {
             List<int> mappingList = new List<int>();
-        
-            if(nameIsSingleCell) // mapping constrcut r
+
+            mappingList.Add(Convert.ToInt32(nameSlider.Value));
+            mappingList.Add(Convert.ToInt32(firstNameSlider.Value));
+            mappingList.Add(Convert.ToInt32(lastNameSlider.Value));
+            mappingList.Add(Convert.ToInt32(emailSlider.Value));
+            mappingList.Add(Convert.ToInt32(propertySlider.Value));
+            mappingList.Add(Convert.ToInt32(phoneSlider.Value));
+            mappingList.Add(Convert.ToInt32(roleSlider.Value));
+
+
+            if (nameIsSingleCell)
             {
-                cellMap = new CellMapping(0, 0, 0, 0, 0); // name is combined
+                cellMap = new CellMapping(mappingList[0], mappingList[3], mappingList[4], mappingList[5], mappingList[6]); // name is combined
             }
             else
             {
-                cellMap = new CellMapping(0, 0, 0, 0, 0, 0); // fir and last name already separated
+                cellMap = new CellMapping(mappingList[1], mappingList[2], mappingList[3], mappingList[4], mappingList[5], mappingList[6]); // first and last name already separated
             }
         }
     }
@@ -151,19 +201,20 @@ namespace ExcelConversionApp
     /// </summary>
     public class ExcelReader
     {
-        public List<ContactData> ReadWorkBook(string path, CellMapping map)
+        public List<ContactData> ReadWorkBook(string path, CellMapping map, bool nameIsSingleCell)
         {
             List<ContactData> contactList = new List<ContactData>();
             
             FileStream file = File.OpenRead(path);
             IWorkbook workbook = new XSSFWorkbook(path);
+            ISheet sheet = workbook.GetSheetAt(0);
 
             ContactData tmpContact;
             IRow tmpRow;
             // for every row (contact) in the sheet
-            for(int i = 0; i < workbook.GetSheetAt(0).LastRowNum; i++)
+            for(int i = 0; i < workbook.GetSheetAt(0).LastRowNum + 1; i++)
             {
-                tmpRow = workbook.GetSheetAt(0).GetRow(i);
+                tmpRow = sheet.GetRow(i);
 
                 // Get data from specified cells
                 // User input can determine which cell to get the data from
@@ -171,12 +222,12 @@ namespace ExcelConversionApp
                 if(nameIsSingleCell)
                 {
                     // Create contact constructor   
-                    tmpContact = newContactData(tmpRow.GetCell(map.nameIndex).StringCellValue, // combined name
-                                                tmpRow.GetCell(map.emailIndex).StringCellValue,
-                                                tmpRow.GetCell(map.emailIndex).StringCellValue,
-                                                tmpRow.GetCell(map.propertyIndex).StringCellValue,
-                                                tmpRow.GetCell(map.phoneIndex).StringCellValue,
-                                                tmpRow.GetCell(map.role).NumericCellValue);
+                    tmpContact = new ContactData(tmpRow.GetCell(0).StringCellValue, // combined name
+                                                tmpRow.GetCell(1).StringCellValue,
+                                                tmpRow.GetCell(2).StringCellValue,
+                                                tmpRow.GetCell(3).NumericCellValue.ToString(),
+                                                //Convert.ToInt32(tmpRow.GetCell(map.phoneIndex).StringCellValue),
+                                                Convert.ToInt32(tmpRow.GetCell(4).NumericCellValue));
                 }
                 else
                 {
@@ -185,16 +236,18 @@ namespace ExcelConversionApp
                                                  tmpRow.GetCell(map.emailIndex).StringCellValue,
                                                  tmpRow.GetCell(map.propertyIndex).StringCellValue,
                                                  tmpRow.GetCell(map.phoneIndex).StringCellValue,
-                                                 tmpRow.GetCell(map.role).NumericCellValue);
+                                                 Convert.ToInt32(tmpRow.GetCell(map.roleIndex).NumericCellValue));
                 }
                 contactList.Add(tmpContact);
-            }     
+            }
+
+            return contactList;
         }
-        return contactList;
+      
     }
 
     /// <summary>
-    /// Creates the new file and the needed data
+    /// Creates the new file and populates it with the directed information.
     /// </summary>
     public class ExcelWriter
     {
@@ -223,11 +276,15 @@ namespace ExcelConversionApp
                 
             }
 
+            int index = path.LastIndexOf('\\');
+
+            path = path.Substring(0, index + 1);
+
             using (var fs = File.Create(path + "testList.xlsx"))
             {
                 workbook.Write(fs);
                 fs.Close();
-            }  
+            }
         }
     }
 
@@ -296,6 +353,8 @@ namespace ExcelConversionApp
             propertyIndex = propertyDex;
             phoneIndex = phoneDex;
             roleIndex = roleDex;
+
+            Console.WriteLine("Name needs splitting: " + nameIndex.ToString() + emailIndex.ToString() + propertyIndex.ToString() + phoneIndex.ToString() + roleIndex.ToString());
         }
         
         public CellMapping(int firstNameDex, int lastNameDex, int emailDex, int propertyDex, int phoneDex, int roleDex)
@@ -306,6 +365,8 @@ namespace ExcelConversionApp
             propertyIndex = propertyDex;
             phoneIndex = phoneDex;
             roleIndex = roleDex;
+
+            Console.WriteLine("Name Already split:" + firstNameIndex.ToString() + lastNameIndex.ToString() + emailIndex.ToString() + propertyIndex.ToString() + phoneIndex.ToString() + roleIndex.ToString());
         }
         
         
