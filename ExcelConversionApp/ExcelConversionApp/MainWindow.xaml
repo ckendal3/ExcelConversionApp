@@ -40,5 +40,7 @@
         <Button x:Name="Button_IsNameCombined" Content="Yes" HorizontalAlignment="Left" Margin="215,100,0,0" VerticalAlignment="Top" Width="44" Height="22" Click="Button_IsNameCombined_Click"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="51,100,0,0" TextWrapping="Wrap" Text="Are names in the same cell?" VerticalAlignment="Top" Width="159"/>
         <Button x:Name="Button_StartConversion" Content="Start Conversion" HorizontalAlignment="Left" Margin="368,238,0,0" VerticalAlignment="Top" Width="139" Height="71" Click="Button_StartConversion_Click"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="323,103,0,0" TextWrapping="Wrap" Text="New FIle name: " VerticalAlignment="Top"/>
+        <TextBox x:Name="fileNameInput" HorizontalAlignment="Left" Height="23" Margin="412,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" FontStyle="Italic" FontSize="9"/>
     </Grid>
 </Window>

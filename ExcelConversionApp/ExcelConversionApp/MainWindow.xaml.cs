@@ -163,12 +163,19 @@ namespace ExcelConversionApp
             // Collected data
             List<ContactData> contacts = reader.ReadWorkBook(FileOpenPath, cellMap, nameIsSingleCell);
             
-            // if there is data, write it to the new file
+            // if there is data, write it to the new file with the input name
             if(contacts.Count > 0)
             {
-                writer.CreateWorkBook(FileWritePath, contacts);
+                if(!fileNameInput.Text.Equals(""))
+                {
+                    writer.CreateWorkBook(FileWritePath, fileNameInput.Text, contacts);
+                }
+                else
+                { 
+                    writer.CreateWorkBook(FileWritePath, "ConvertedExcelSheet" , contacts);
+                }
+                
             }
-        
         }
         
                 
@@ -226,7 +233,6 @@ namespace ExcelConversionApp
                                                 tmpRow.GetCell(1).StringCellValue,
                                                 tmpRow.GetCell(2).StringCellValue,
                                                 tmpRow.GetCell(3).NumericCellValue.ToString(),
-                                                //Convert.ToInt32(tmpRow.GetCell(map.phoneIndex).StringCellValue),
                                                 Convert.ToInt32(tmpRow.GetCell(4).NumericCellValue));
                 }
                 else
@@ -251,7 +257,7 @@ namespace ExcelConversionApp
     /// </summary>
     public class ExcelWriter
     {
-        public void CreateWorkBook(string path, List<ContactData> inData)
+        public void CreateWorkBook(string path, string fileName, List<ContactData> inData)
         {
             IWorkbook workbook = new XSSFWorkbook();
             ISheet s1 = workbook.CreateSheet("Sheet1");
@@ -280,7 +286,7 @@ namespace ExcelConversionApp
 
             path = path.Substring(0, index + 1);
 
-            using (var fs = File.Create(path + "testList.xlsx"))
+            using (var fs = File.Create(path + fileName + ".xlsx"))
             {
                 workbook.Write(fs);
                 fs.Close();
