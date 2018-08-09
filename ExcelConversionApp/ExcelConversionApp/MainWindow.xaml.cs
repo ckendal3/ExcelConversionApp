@@ -131,6 +131,11 @@ namespace ExcelConversionApp
             }
         }
 
+        /// <summary>
+        /// Returns the file path for the selected file. 
+        /// </summary>
+        /// <param name="newPath"></param>
+        /// <param name="textBlock"></param>
         public void FindFilePath(out string newPath, ref TextBlock textBlock)
         {
             newPath = "";
@@ -155,6 +160,9 @@ namespace ExcelConversionApp
             }
         }
         
+        /// <summary>
+        /// This method executes the conversion.
+        /// </summary>
         public void ParseFile()
         {      
             ExcelReader reader = new ExcelReader();
@@ -215,6 +223,7 @@ namespace ExcelConversionApp
             FileStream file = File.OpenRead(path);
             IWorkbook workbook = new XSSFWorkbook(path);
             ISheet sheet = workbook.GetSheetAt(0);
+
 
             ContactData tmpContact;
             IRow tmpRow;
