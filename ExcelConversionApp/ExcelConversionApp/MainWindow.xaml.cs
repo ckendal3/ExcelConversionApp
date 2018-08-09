@@ -238,11 +238,13 @@ namespace ExcelConversionApp
                 if(nameIsSingleCell)
                 {
                     // Create contact constructor   
-                    tmpContact = new ContactData(tmpRow.GetCell(0).StringCellValue, // combined name
-                                                tmpRow.GetCell(1).StringCellValue,
-                                                tmpRow.GetCell(2).StringCellValue,
-                                                tmpRow.GetCell(3).NumericCellValue.ToString(),
-                                                Convert.ToInt32(tmpRow.GetCell(4).NumericCellValue));
+                    tmpContact = new ContactData(tmpRow.GetCell(map.nameIndex).StringCellValue, // combined name
+                                                //tmpRow.GetCell(map.emailIndex).StringCellValue,
+                                                "bloopbleeop",
+                                                tmpRow.GetCell(map.propertyIndex).StringCellValue,
+                                                tmpRow.GetCell(map.phoneIndex).NumericCellValue.ToString(),
+                                                //Convert.ToInt32(tmpRow.GetCell(map.roleIndex).NumericCellValue));
+                                                0);
                 }
                 else
                 {
@@ -361,6 +363,7 @@ namespace ExcelConversionApp
     public class CellMapping
     {
         
+
         public CellMapping(int nameDex, int emailDex, int propertyDex, int phoneDex, int roleDex)
         {
             nameIndex = nameDex;
