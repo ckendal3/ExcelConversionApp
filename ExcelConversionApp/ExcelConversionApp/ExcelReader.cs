@@ -13,14 +13,25 @@ namespace ExcelConversionApp
     {
         public List<RowData> ReadWorkBook(string path, List<CellMap> cellMaps)
         {
-            // list of all data to keep
+
+            try
+            {
+                FileStream file = File.OpenRead(path);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("File is open, please close it.");
+                return null;
+            }
+                
+
+
+               // list of all data to keep
             List<RowData> dataList = new List<RowData>();
 
             // row data
             RowData rowData;
 
-            FileStream file = File.OpenRead(path);
-   
             IWorkbook workbook = new XSSFWorkbook(path);
             ISheet sheet = workbook.GetSheetAt(0);
 

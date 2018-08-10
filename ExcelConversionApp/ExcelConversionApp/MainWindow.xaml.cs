@@ -135,6 +135,11 @@ namespace ExcelConversionApp
             
             // Collected data
             List<RowData> data = reader.ReadWorkBook(FileOpenPath, cellMaps);
+
+            if(data == null)
+            {
+                return;
+            }
             
             // if there is data, write it to the new file with the input name
             if(data.Count > 0)
@@ -153,6 +158,12 @@ namespace ExcelConversionApp
 
         public void AddCellMap(CellMap map)
         {
+            // if data is already there, do nothing
+            if(cellMaps.Contains(map))
+            {
+                return;
+            }
+
             cellMaps.Add(map);
         }
 

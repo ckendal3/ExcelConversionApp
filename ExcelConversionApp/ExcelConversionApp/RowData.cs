@@ -15,21 +15,45 @@ namespace ExcelConversionApp
 
         public void AddString(int cell, string value)
         {
+            if(stringDict.ContainsKey(cell))
+            {
+                Console.WriteLine("Cell data already exists");
+                return;
+            }
+
             stringDict.Add(cell, value);
         }
 
         public void AddNumber(int cell, int value)
         {
+            if (numericDict.ContainsKey(cell))
+            {
+                Console.WriteLine("Cell data already exists");
+                return;
+            }
+
             numericDict.Add(cell, Convert.ToInt64(value));
         }
 
         public void AddNumber(int cell, long value)
         {
+            if (numericDict.ContainsKey(cell))
+            {
+                Console.WriteLine("Cell data already exists");
+                return;
+            }
+
             numericDict.Add(cell, value);
         }
 
         public void AddNumber(int cell, double value)
         {
+            if (numericDict.ContainsKey(cell))
+            {
+                Console.WriteLine("Cell data already exists");
+                return;
+            }
+
             numericDict.Add(cell, Convert.ToInt64(value));
         }
     }
