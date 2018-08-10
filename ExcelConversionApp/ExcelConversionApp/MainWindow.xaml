@@ -15,19 +15,12 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="382,10,0,0" TextWrapping="Wrap" Text="File To Create:" VerticalAlignment="Top" Width="83"/>
         <TextBox HorizontalAlignment="Left" Height="64" Margin="134,10,0,0" TextWrapping="Wrap" Text="Wonderful Excel Parser" VerticalAlignment="Top" Width="248" TextAlignment="Center" FontWeight="Bold" FontSize="20"/>
         <Grid HorizontalAlignment="Left" Height="173" Margin="51,136,0,0" VerticalAlignment="Top" Width="312">
-            <Slider x:Name="nameSlider" HorizontalAlignment="Left" Margin="53,10,0,0" VerticalAlignment="Top" Width="215" IsSnapToTickEnabled="True" Maximum="100"/>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="43" Height="18"/>
-            <Slider x:Name="firstNameSlider" HorizontalAlignment="Left" Margin="53,28,0,0" VerticalAlignment="Top" Width="215" IsSnapToTickEnabled="True" Maximum="100"/>
             <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="10,28,0,0" TextWrapping="Wrap" Text="First Name" VerticalAlignment="Top" Width="43" Height="18" FontSize="9"/>
-            <Slider x:Name="lastNameSlider" HorizontalAlignment="Left" Margin="53,46,0,0" VerticalAlignment="Top" Width="215" IsSnapToTickEnabled="True" Maximum="100"/>
             <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="10,46,0,0" TextWrapping="Wrap" Text="Last Name" VerticalAlignment="Top" Width="43" Height="18" FontSize="9"/>
-            <Slider x:Name="emailSlider" HorizontalAlignment="Left" Margin="53,64,0,0" VerticalAlignment="Top" Width="215" IsSnapToTickEnabled="True" Maximum="100"/>
             <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="10,64,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Width="43" Height="18"/>
-            <Slider x:Name="propertySlider" HorizontalAlignment="Left" Margin="53,82,0,0" VerticalAlignment="Top" Width="215" IsSnapToTickEnabled="True" Maximum="100"/>
             <TextBlock x:Name="textBlock_Copy3" HorizontalAlignment="Left" Margin="10,82,0,0" TextWrapping="Wrap" Text="Property" VerticalAlignment="Top" Width="43" Height="18" FontSize="10"/>
-            <Slider x:Name="phoneSlider" HorizontalAlignment="Left" Margin="53,100,0,0" VerticalAlignment="Top" Width="215" IsSnapToTickEnabled="True" Maximum="100"/>
             <TextBlock x:Name="textBlock_Copy4" HorizontalAlignment="Left" Margin="10,100,0,0" TextWrapping="Wrap" Text="phone #" VerticalAlignment="Top" Width="43" Height="18" FontSize="9"/>
-            <Slider x:Name="roleSlider" HorizontalAlignment="Left" Margin="53,118,0,0" VerticalAlignment="Top" Width="215" IsSnapToTickEnabled="True" Maximum="100"/>
             <TextBlock x:Name="textBlock_Copy5" HorizontalAlignment="Left" Margin="10,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="43" Height="18" FontSize="9"><Run Text="Role"/><LineBreak/><Run/></TextBlock>
             <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="18" Margin="273,10,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=nameSlider}" VerticalAlignment="Top" Width="29"/>
             <TextBox x:Name="textBox2_Copy" HorizontalAlignment="Left" Height="18" Margin="273,28,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=firstNameSlider}" VerticalAlignment="Top" Width="29"/>
@@ -37,8 +30,6 @@
             <TextBox x:Name="textBox2_Copy4" HorizontalAlignment="Left" Height="18" Margin="273,100,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=phoneSlider}" VerticalAlignment="Top" Width="29"/>
             <TextBox x:Name="textBox2_Copy5" HorizontalAlignment="Left" Height="18" Margin="273,118,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=roleSlider}" VerticalAlignment="Top" Width="29"/>
         </Grid>
-        <Button x:Name="Button_IsNameCombined" Content="Yes" HorizontalAlignment="Left" Margin="215,100,0,0" VerticalAlignment="Top" Width="44" Height="22" Click="Button_IsNameCombined_Click"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="51,100,0,0" TextWrapping="Wrap" Text="Are names in the same cell?" VerticalAlignment="Top" Width="159"/>
         <Button x:Name="Button_StartConversion" Content="Start Conversion" HorizontalAlignment="Left" Margin="368,238,0,0" VerticalAlignment="Top" Width="139" Height="71" Click="Button_StartConversion_Click"/>
         <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="323,103,0,0" TextWrapping="Wrap" Text="New FIle name: " VerticalAlignment="Top"/>
         <TextBox x:Name="fileNameInput" HorizontalAlignment="Left" Height="23" Margin="412,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" FontStyle="Italic" FontSize="9"/>
