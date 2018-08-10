@@ -10,18 +10,18 @@ namespace ExcelConversionApp
     {
         public CellMap(int importId, int conversionId)
         {
-            importedCellId = importId;
-            conversionCellId = conversionId;
+            ImportedCellId = importId;
+            ConversionCellId = conversionId;
         }
 
         // the cell's Id in the file where the data is pulled from
         private int importedCellId;
         public int ImportedCellId
         {
-            get { return importCellId; }
+            get { return importedCellId; }
             set
             {
-                importCellId = value;
+                importedCellId = value;
             }
         }
 

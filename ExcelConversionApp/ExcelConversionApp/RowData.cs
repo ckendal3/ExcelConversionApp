@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExcelConversionApp
 {
-    public class NewData
+    public class RowData
     {
 
         // int respresents the cellId to place in and the value is the value of the newCell
@@ -15,7 +15,6 @@ namespace ExcelConversionApp
 
         public void AddString(int cell, string value)
         {
-            Console.WriteLine("NewData, in StringDict add: " + value);
             stringDict.Add(cell, value);
         }
 

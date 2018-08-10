@@ -11,7 +11,7 @@ namespace ExcelConversionApp
     /// </summary>
     public class ExcelWriter
     {
-        public void CreateWorkBook(string path, string fileName, List<NewData> inData)
+        public void CreateWorkBook(string path, string fileName, List<RowData> inData)
         {
             IWorkbook workbook = new XSSFWorkbook();
             ISheet s1 = workbook.CreateSheet("Sheet1");
@@ -35,20 +35,33 @@ namespace ExcelConversionApp
         /// <param name="sheet"></param>
         /// <param name="rowId"></param>
         /// <param name="data"></param>
-        public void GenerateRow(ISheet sheet, int rowId, NewData data)
+        public void GenerateRow(ISheet sheet, int rowId, RowData data)
         {
+            ICell tmpCell;
+
             // For every string data piece - create a corresponding cell
-            foreach (KeyValuePair<int, string> stringCell in data.stringData)
+            foreach (KeyValuePair<int, string> stringCell in data.stringDict)
             {
-                sheet.CreateRow(rowId).CreateCell(stringCell.Key).SetCellType(CellType.String);
-                sheet.CreateRow(rowId).CreateCell(stringCell.Key).SetCellValue(stringCell.Value);
+                string tmp = string.Format(" || Key {0}, Value = {1}", stringCell.Key, stringCell.Value);
+                
+
+                Console.WriteLine("GenerateRow " + rowId + tmp);
+                tmpCell = sheet.CreateRow(rowId).CreateCell(stringCell.Key);
+                tmpCell.SetCellType(CellType.String);
+                tmpCell.SetCellValue(stringCell.Value);
+
+                string tmp2 = string.Format("Row {0}, Cell {1}, Value = {2}", rowId, stringCell.Key, sheet.GetRow(rowId).GetCell(stringCell.Key).StringCellValue);
+
+                Console.WriteLine(tmp2);
             }
 
             // For every numeric data piece - create a corresponding cell
-            foreach (KeyValuePair<int, long> numericCell in data.numericData)
+            foreach (KeyValuePair<int, long> numericCell in data.numericDict)
             {
-                sheet.CreateRow(rowId).CreateCell(numericCell.Key).SetCellType(CellType.Numeric);
-                sheet.CreateRow(rowId).CreateCell(numericCell.Key).SetCellValue(numericCell.Value);
+                tmpCell = sheet.CreateRow(rowId).CreateCell(numericCell.Key);
+                tmpCell.SetCellType(CellType.Numeric);
+                tmpCell.SetCellValue(numericCell.Value);
+                Console.WriteLine("Cell value: " + tmpCell.NumericCellValue);
             }
         }
 

@@ -15,20 +15,29 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="382,10,0,0" TextWrapping="Wrap" Text="File To Create:" VerticalAlignment="Top" Width="83"/>
         <TextBox HorizontalAlignment="Left" Height="64" Margin="134,10,0,0" TextWrapping="Wrap" Text="Wonderful Excel Parser" VerticalAlignment="Top" Width="248" TextAlignment="Center" FontWeight="Bold" FontSize="20"/>
         <Grid HorizontalAlignment="Left" Height="173" Margin="51,136,0,0" VerticalAlignment="Top" Width="312">
-            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="43" Height="18"/>
-            <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="10,28,0,0" TextWrapping="Wrap" Text="First Name" VerticalAlignment="Top" Width="43" Height="18" FontSize="9"/>
-            <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="10,46,0,0" TextWrapping="Wrap" Text="Last Name" VerticalAlignment="Top" Width="43" Height="18" FontSize="9"/>
-            <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="10,64,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Width="43" Height="18"/>
-            <TextBlock x:Name="textBlock_Copy3" HorizontalAlignment="Left" Margin="10,82,0,0" TextWrapping="Wrap" Text="Property" VerticalAlignment="Top" Width="43" Height="18" FontSize="10"/>
-            <TextBlock x:Name="textBlock_Copy4" HorizontalAlignment="Left" Margin="10,100,0,0" TextWrapping="Wrap" Text="phone #" VerticalAlignment="Top" Width="43" Height="18" FontSize="9"/>
-            <TextBlock x:Name="textBlock_Copy5" HorizontalAlignment="Left" Margin="10,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="43" Height="18" FontSize="9"><Run Text="Role"/><LineBreak/><Run/></TextBlock>
-            <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="18" Margin="273,10,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=nameSlider}" VerticalAlignment="Top" Width="29"/>
-            <TextBox x:Name="textBox2_Copy" HorizontalAlignment="Left" Height="18" Margin="273,28,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=firstNameSlider}" VerticalAlignment="Top" Width="29"/>
-            <TextBox x:Name="textBox2_Copy1" HorizontalAlignment="Left" Height="18" Margin="273,46,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=lastNameSlider}" VerticalAlignment="Top" Width="29"/>
-            <TextBox x:Name="textBox2_Copy2" HorizontalAlignment="Left" Height="18" Margin="273,64,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=emailSlider}" VerticalAlignment="Top" Width="29"/>
-            <TextBox x:Name="textBox2_Copy3" HorizontalAlignment="Left" Height="18" Margin="273,82,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=propertySlider}" VerticalAlignment="Top" Width="29"/>
-            <TextBox x:Name="textBox2_Copy4" HorizontalAlignment="Left" Height="18" Margin="273,100,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=phoneSlider}" VerticalAlignment="Top" Width="29"/>
-            <TextBox x:Name="textBox2_Copy5" HorizontalAlignment="Left" Height="18" Margin="273,118,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=roleSlider}" VerticalAlignment="Top" Width="29"/>
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="70,37,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="43" Height="18"/>
+            <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="70,55,0,0" TextWrapping="Wrap" Text="First Name" VerticalAlignment="Top" Width="43" Height="18" FontSize="9"/>
+            <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="70,73,0,0" TextWrapping="Wrap" Text="Last Name" VerticalAlignment="Top" Width="43" Height="18" FontSize="9"/>
+            <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="70,91,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Width="43" Height="18"/>
+            <TextBlock x:Name="textBlock_Copy3" HorizontalAlignment="Left" Margin="70,109,0,0" TextWrapping="Wrap" Text="Property" VerticalAlignment="Top" Width="43" Height="18" FontSize="10"/>
+            <TextBlock x:Name="textBlock_Copy4" HorizontalAlignment="Left" Margin="70,127,0,0" TextWrapping="Wrap" Text="phone #" VerticalAlignment="Top" Width="43" Height="18" FontSize="9"/>
+            <TextBlock x:Name="textBlock_Copy5" HorizontalAlignment="Left" Margin="70,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="43" Height="18" FontSize="9"><Run Text="Role"/><LineBreak/><Run/></TextBlock>
+            <TextBox x:Name="newIdName" HorizontalAlignment="Left" Height="18" Margin="134,37,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=nameSlider}" VerticalAlignment="Top" Width="29"/>
+            <TextBox x:Name="newIdFirstName" HorizontalAlignment="Left" Height="18" Margin="134,55,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=firstNameSlider}" VerticalAlignment="Top" Width="29"/>
+            <TextBox x:Name="newIdLastName" HorizontalAlignment="Left" Height="18" Margin="134,73,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=lastNameSlider}" VerticalAlignment="Top" Width="29"/>
+            <TextBox x:Name="newIdEmail" HorizontalAlignment="Left" Height="18" Margin="134,91,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=emailSlider}" VerticalAlignment="Top" Width="29"/>
+            <TextBox x:Name="newIdProperty" HorizontalAlignment="Left" Height="18" Margin="134,109,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=propertySlider}" VerticalAlignment="Top" Width="29"/>
+            <TextBox x:Name="newIdPhone" HorizontalAlignment="Left" Height="18" Margin="134,127,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=phoneSlider}" VerticalAlignment="Top" Width="29"/>
+            <TextBox x:Name="newIdRole" HorizontalAlignment="Left" Height="18" Margin="134,145,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=roleSlider}" VerticalAlignment="Top" Width="29"/>
+            <TextBox x:Name="oldIdName" HorizontalAlignment="Left" Height="18" Margin="11,37,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=nameSlider}" VerticalAlignment="Top" Width="29"/>
+            <TextBox x:Name="oldIdFirstName" HorizontalAlignment="Left" Height="18" Margin="11,55,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=firstNameSlider}" VerticalAlignment="Top" Width="29"/>
+            <TextBox x:Name="oldIdLastName" HorizontalAlignment="Left" Height="18" Margin="11,73,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=lastNameSlider}" VerticalAlignment="Top" Width="29"/>
+            <TextBox x:Name="oldIdEmail" HorizontalAlignment="Left" Height="18" Margin="11,91,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=emailSlider}" VerticalAlignment="Top" Width="29"/>
+            <TextBox x:Name="oldIdProperty" HorizontalAlignment="Left" Height="18" Margin="11,109,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=propertySlider}" VerticalAlignment="Top" Width="29"/>
+            <TextBox x:Name="oldIdPhone" HorizontalAlignment="Left" Height="18" Margin="11,127,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=phoneSlider}" VerticalAlignment="Top" Width="29"/>
+            <TextBox x:Name="oldIdRole" HorizontalAlignment="Left" Height="18" Margin="11,145,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=roleSlider}" VerticalAlignment="Top" Width="29"/>
+            <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="0,10,0,0" TextWrapping="Wrap" Text="OldCellID" VerticalAlignment="Top"/>
+            <TextBlock x:Name="textBlock2_Copy" HorizontalAlignment="Left" Margin="123,10,0,0" TextWrapping="Wrap" Text="NewCellId" VerticalAlignment="Top"/>
         </Grid>
         <Button x:Name="Button_StartConversion" Content="Start Conversion" HorizontalAlignment="Left" Margin="368,238,0,0" VerticalAlignment="Top" Width="139" Height="71" Click="Button_StartConversion_Click"/>
         <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="323,103,0,0" TextWrapping="Wrap" Text="New FIle name: " VerticalAlignment="Top"/>

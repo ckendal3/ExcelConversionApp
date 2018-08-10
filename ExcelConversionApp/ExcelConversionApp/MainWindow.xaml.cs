@@ -80,6 +80,10 @@ namespace ExcelConversionApp
 
         private void Button_FileToWrite_Click(object sender, RoutedEventArgs e)
         {
+            Button button = (Button)e.Source;
+
+            Console.WriteLine(button.Content.ToString());
+
             FindFilePath(out string newPath, ref fileWritePathTextBlock);
             if (!newPath.Equals(""))
             {
@@ -130,7 +134,7 @@ namespace ExcelConversionApp
             ExcelWriter writer = new ExcelWriter();
             
             // Collected data
-            List<NewData> data = reader.ReadWorkBook(FileOpenPath, cellMaps);
+            List<RowData> data = reader.ReadWorkBook(FileOpenPath, cellMaps);
             
             // if there is data, write it to the new file with the input name
             if(data.Count > 0)
@@ -162,6 +166,14 @@ namespace ExcelConversionApp
         {
             // When a new item is created, add it to the list cellMapping
             // Create a "prefab" of components the contain 3 input boxes (nameInput, importCellId, newCellId) with a button to submit changes
+
+            AddCellMap(new CellMap(int.Parse(oldIdName.Text), int.Parse(newIdName.Text)));
+            //AddCellMap(new CellMap(int.Parse(oldIdFirstName.Text), int.Parse(newIdFirstName.Text)));
+            //AddCellMap(new CellMap(int.Parse(oldIdLastName.Text), int.Parse(newIdLastName.Text)));
+            AddCellMap(new CellMap(int.Parse(oldIdEmail.Text), int.Parse(newIdEmail.Text)));
+            AddCellMap(new CellMap(int.Parse(oldIdProperty.Text), int.Parse(newIdProperty.Text)));
+            AddCellMap(new CellMap(int.Parse(oldIdPhone.Text), int.Parse(newIdPhone.Text)));
+            //AddCellMap(new CellMap(int.Parse(oldIdRole.Text), int.Parse(newIdRole.Text)));
         }
     }
 

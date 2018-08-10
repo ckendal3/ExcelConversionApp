@@ -69,6 +69,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RowData.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,6 +79,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CellMap.cs" />
+    <Compile Include="Class5.cs" />
     <Compile Include="ExcelReader.cs" />
     <Compile Include="ExcelWriter.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -86,7 +88,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NewData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
