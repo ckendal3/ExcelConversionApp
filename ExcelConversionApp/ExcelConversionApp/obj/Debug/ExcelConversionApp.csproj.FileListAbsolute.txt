@@ -41,3 +41,25 @@ C:\Users\JK\Documents\GitHub\ExcelConversionApp\ExcelConversionApp\ExcelConversi
 C:\Users\JK\Documents\GitHub\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\ExcelConversionApp.csproj.CopyComplete
 C:\Users\JK\Documents\GitHub\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\ExcelConversionApp.exe
 C:\Users\JK\Documents\GitHub\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\ExcelConversionApp.pdb
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\MainWindow.g.cs
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\App.g.cs
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\ExcelConversionApp_MarkupCompile.cache
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\ExcelConversionApp_MarkupCompile.lref
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\bin\Debug\ExcelConversionApp.exe.config
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\bin\Debug\ExcelConversionApp.exe
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\bin\Debug\ExcelConversionApp.pdb
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\bin\Debug\NPOI.dll
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\bin\Debug\NPOI.OOXML.dll
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\bin\Debug\NPOI.OpenXml4Net.dll
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\bin\Debug\NPOI.OpenXmlFormats.dll
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\bin\Debug\NPOI.xml
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\ExcelConversionApp.csprojAssemblyReference.cache
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\MainWindow.baml
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\ExcelConversionApp.g.resources
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\ExcelConversionApp.Properties.Resources.resources
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\ExcelConversionApp.csproj.GenerateResource.cache
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\ExcelConversionApp.csproj.CoreCompileInputs.cache
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\ExcelConversionApp.csproj.CopyComplete
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\ExcelConversionApp.exe
+C:\Users\Jerry Kendall\Documents\ExcelConverter\ExcelConversionApp\ExcelConversionApp\ExcelConversionApp\obj\Debug\ExcelConversionApp.pdb
