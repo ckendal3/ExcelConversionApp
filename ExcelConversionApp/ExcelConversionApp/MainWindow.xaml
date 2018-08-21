@@ -37,7 +37,7 @@
                 <GridView>
                     <GridViewColumn Header="Import ID" Width="60" DisplayMemberBinding="{Binding ImportedCellId}" />
                     <GridViewColumn Header="Map Name" Width="120" DisplayMemberBinding="{Binding MapName}" />
-                    <GridViewColumn Header="Export Id" Width="60" DisplayMemberBinding="{Binding ConversionCellId}" />
+                    <GridViewColumn Header="Export ID" Width="60" DisplayMemberBinding="{Binding ConversionCellId}" />
                 </GridView>
             </ListView.View>
         </ListView>

@@ -20,7 +20,6 @@ namespace ExcelConversionApp
     public partial class MainWindow : Window
     {
         NotifyPropertyChange notifyPropertyChange = new NotifyPropertyChange();
-        //List<CellMap> cellMaps = new List<CellMap>();
 
         ObservableCollection<CellMap> cellMaps = new ObservableCollection<CellMap>();
 
@@ -72,7 +71,6 @@ namespace ExcelConversionApp
 
         public void StartParsingProcedure()
         {
-            
             if(FileOpenPath == "None Selected" || FileWritePath == "None Selected")
             {
                 Console.WriteLine("A file path is not set.");
@@ -80,7 +78,6 @@ namespace ExcelConversionApp
             }
 
             ParseFile();
-
         }
 
 
@@ -91,7 +88,6 @@ namespace ExcelConversionApp
             {
                 FileOpenPath = newPath;
             }
-            
         }
 
         private void Button_FileToWrite_Click(object sender, RoutedEventArgs e)
