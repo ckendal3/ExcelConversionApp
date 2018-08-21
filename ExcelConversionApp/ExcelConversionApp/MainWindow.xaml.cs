@@ -50,6 +50,8 @@ namespace ExcelConversionApp
         public MainWindow()
         {
             InitializeComponent();
+
+
         }
         
         public void StartParsingProcedure()
@@ -60,8 +62,6 @@ namespace ExcelConversionApp
                 Console.WriteLine("A file path is not set.");
                 return;
             }
-
-            SetMapping();
 
             ParseFile();
 
@@ -94,6 +94,11 @@ namespace ExcelConversionApp
         private void Button_StartConversion_Click(object sender, RoutedEventArgs e)
         {
             StartParsingProcedure();
+        }
+
+        private void Button_AddNewCustomMap()
+        {
+
         }
 
         /// <summary>
@@ -165,26 +170,14 @@ namespace ExcelConversionApp
             }
 
             cellMaps.Add(map);
+
+            // Add visual cellmapping in list view
+
         }
 
         public void RemoveCellMap(CellMap map)
         {
             cellMaps.Remove(map);
-        }
-        
-                
-        public void SetMapping()
-        {
-            // When a new item is created, add it to the list cellMapping
-            // Create a "prefab" of components the contain 3 input boxes (nameInput, importCellId, newCellId) with a button to submit changes
-
-            AddCellMap(new CellMap(int.Parse(oldIdName.Text), int.Parse(newIdName.Text)));
-            //AddCellMap(new CellMap(int.Parse(oldIdFirstName.Text), int.Parse(newIdFirstName.Text)));
-            //AddCellMap(new CellMap(int.Parse(oldIdLastName.Text), int.Parse(newIdLastName.Text)));
-            AddCellMap(new CellMap(int.Parse(oldIdEmail.Text), int.Parse(newIdEmail.Text)));
-            AddCellMap(new CellMap(int.Parse(oldIdProperty.Text), int.Parse(newIdProperty.Text)));
-            AddCellMap(new CellMap(int.Parse(oldIdPhone.Text), int.Parse(newIdPhone.Text)));
-            //AddCellMap(new CellMap(int.Parse(oldIdRole.Text), int.Parse(newIdRole.Text)));
         }
     }
 
