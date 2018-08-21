@@ -51,6 +51,13 @@ namespace ExcelConversionApp
         {
             InitializeComponent();
 
+            // Need to write unit tests instead of this 
+            cellMaps.Add(new CellMap(0, 0, "First"));
+            cellMaps.Add(new CellMap(2, 4, "Second"));
+            cellMaps.Add(new CellMap(18, 1, "FiEighteenth"));
+
+
+            listview_MappingList.ItemsSource = cellMaps;
 
         }
         
@@ -96,9 +103,14 @@ namespace ExcelConversionApp
             StartParsingProcedure();
         }
 
+        /// <summary>
+        /// Adds the mapped cell to the cellmap list and clears the inputs for the next mapping.
+        /// </summary>
         private void Button_AddNewCustomMap()
         {
+            cellMaps.Add(new CellMap(AddMapControl.GetImportId(), AddMapControl.GetExportId(), AddMapControl.GetMapName()));
 
+            AddMapControl.ClearInputs();
         }
 
         /// <summary>

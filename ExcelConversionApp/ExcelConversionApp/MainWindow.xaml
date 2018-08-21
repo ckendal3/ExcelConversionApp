@@ -32,15 +32,14 @@
                 </TransformGroup>
             </local:AddMapControl.RenderTransform>
         </local:AddMapControl>
-        <ListView HorizontalAlignment="Left" Height="166" Margin="10,151,0,0" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2">
+        <ListView x:Name="listview_MappingList" HorizontalAlignment="Left" Height="166" Margin="10,151,0,0" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Import ID" Width="60" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Map Name" Width="120" DisplayMemberBinding="{Binding Age}" />
-                    <GridViewColumn Header="Export Id" Width="60" DisplayMemberBinding="{Binding Mail}" />
+                    <GridViewColumn Header="Import ID" Width="60" DisplayMemberBinding="{Binding ImportedCellId}" />
+                    <GridViewColumn Header="Map Name" Width="120" DisplayMemberBinding="{Binding ConversionCellId}" />
+                    <GridViewColumn Header="Export Id" Width="60" DisplayMemberBinding="{Binding MapName}" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <Grid x:Name="GridViewTest" HorizontalAlignment="Left" Height="155" Margin="121,145,0,0" VerticalAlignment="Top" Width="127" Grid.Column="3" Grid.ColumnSpan="3"/>
     </Grid>
 </Window>

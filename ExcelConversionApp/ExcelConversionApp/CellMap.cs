@@ -8,10 +8,11 @@ namespace ExcelConversionApp
 {
     public class CellMap
     {
-        public CellMap(int importId, int conversionId)
+        public CellMap(int importId, int conversionId, string mapName)
         {
             ImportedCellId = importId;
             ConversionCellId = conversionId;
+            MapName = mapName;
         }
 
         // the cell's Id in the file where the data is pulled from
@@ -36,6 +37,15 @@ namespace ExcelConversionApp
             }
         }
 
+        private string mapName;
+        public string MapName
+        {
+            get { return mapName; }
+            set
+            {
+                mapName = value;
+            }
+        }
 
     }
 }
