@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,8 +20,11 @@ namespace ExcelConversionApp
     public partial class MainWindow : Window
     {
         NotifyPropertyChange notifyPropertyChange = new NotifyPropertyChange();
-        List<CellMap> cellMaps = new List<CellMap>();
-        
+        //List<CellMap> cellMaps = new List<CellMap>();
+
+        ObservableCollection<CellMap> cellMaps = new ObservableCollection<CellMap>();
+
+
         private string fileOpenPath = "None Selected";
         public string FileOpenPath
         {
@@ -51,16 +55,21 @@ namespace ExcelConversionApp
         {
             InitializeComponent();
 
-            // Need to write unit tests instead of this 
-            cellMaps.Add(new CellMap(0, 0, "First"));
-            cellMaps.Add(new CellMap(2, 4, "Second"));
-            cellMaps.Add(new CellMap(18, 1, "FiEighteenth"));
-
+            AddMapControl.button_AddMap.Click += Button_AddMap_Click;
 
             listview_MappingList.ItemsSource = cellMaps;
-
         }
-        
+
+        /// <summary>
+        /// Adds the mapped cell to the cellmap list and clears the inputs for the next mapping.
+        /// </summary>
+        private void Button_AddMap_Click(object sender, RoutedEventArgs e)
+        {
+            AddCellMap(new CellMap(AddMapControl.GetImportId(), AddMapControl.GetExportId(), AddMapControl.GetMapName()));
+
+            AddMapControl.ClearInputs();
+        }
+
         public void StartParsingProcedure()
         {
             
@@ -104,16 +113,6 @@ namespace ExcelConversionApp
         }
 
         /// <summary>
-        /// Adds the mapped cell to the cellmap list and clears the inputs for the next mapping.
-        /// </summary>
-        private void Button_AddNewCustomMap()
-        {
-            cellMaps.Add(new CellMap(AddMapControl.GetImportId(), AddMapControl.GetExportId(), AddMapControl.GetMapName()));
-
-            AddMapControl.ClearInputs();
-        }
-
-        /// <summary>
         /// Returns the file path for the selected file. 
         /// </summary>
         /// <param name="newPath"></param>
@@ -149,9 +148,9 @@ namespace ExcelConversionApp
         {      
             ExcelReader reader = new ExcelReader();
             ExcelWriter writer = new ExcelWriter();
-            
+
             // Collected data
-            List<RowData> data = reader.ReadWorkBook(FileOpenPath, cellMaps);
+            List<RowData> data = reader.ReadWorkBook(FileOpenPath, GetCellMap(cellMaps)); // get data based on observable cell map list
 
             if(data == null)
             {
@@ -182,14 +181,28 @@ namespace ExcelConversionApp
             }
 
             cellMaps.Add(map);
-
-            // Add visual cellmapping in list view
-
         }
 
         public void RemoveCellMap(CellMap map)
         {
             cellMaps.Remove(map);
+        }
+
+        /// <summary>
+        /// Returns a CellMap list rather than an observable collection
+        /// </summary>
+        /// <param name="observableList"></param>
+        /// <returns></returns>
+        public List<CellMap> GetCellMap(ObservableCollection<CellMap> observableList)
+        {
+            List<CellMap> tmpList = new List<CellMap>();
+
+            foreach (CellMap map in observableList)
+            {
+                tmpList.Add(map);
+            }
+
+            return tmpList;
         }
     }
 
