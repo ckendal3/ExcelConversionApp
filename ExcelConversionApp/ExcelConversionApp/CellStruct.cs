@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExcelConversionApp.Cell
+namespace ExcelConversionApp
 {
     public struct CellStruct
     {
@@ -48,6 +48,30 @@ namespace ExcelConversionApp.Cell
         }
 
     }
+
+
+    /// <summary>
+    /// Cell coordinate holder. X = Column, Y = Row
+    /// </summary>
+    public struct CellCoords
+    {
+        /// <summary>
+        /// This holds the column location
+        /// </summary>
+        int x;
+
+        /// <summary>
+        /// This holds the row location
+        /// </summary>
+        int y;
+
+        public CellCoords(int column, int row)
+        {
+            x = column;
+            y = row;
+        }
+    }
+
 
     public enum ECellType
     {
