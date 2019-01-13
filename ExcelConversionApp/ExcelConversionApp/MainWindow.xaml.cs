@@ -19,6 +19,9 @@ namespace ExcelConversionApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        ExcelReader reader;
+        ExcelWriter writer;
+
         NotifyPropertyChange notifyPropertyChange = new NotifyPropertyChange();
 
         ObservableCollection<CellMap> cellMaps = new ObservableCollection<CellMap>();
@@ -69,18 +72,6 @@ namespace ExcelConversionApp
             AddMapControl.ClearInputs();
         }
 
-        public void StartParsingProcedure()
-        {
-            if(FileOpenPath == "None Selected" || FileWritePath == "None Selected")
-            {
-                Console.WriteLine("A file path is not set.");
-                return;
-            }
-
-            ParseFile();
-        }
-
-
         private void Button_FileToOpen_Click(object sender, RoutedEventArgs e)
         {
             FindFilePath(out string newPath, ref fileOpenPathTextBlock);
@@ -105,7 +96,10 @@ namespace ExcelConversionApp
 
         private void Button_StartConversion_Click(object sender, RoutedEventArgs e)
         {
-            StartParsingProcedure();
+            if(FilePathsAreSet())
+            {
+                ParseFile();
+            }
         }
 
         /// <summary>
@@ -142,8 +136,8 @@ namespace ExcelConversionApp
         /// </summary>
         public void ParseFile()
         {      
-            ExcelReader reader = new ExcelReader();
-            ExcelWriter writer = new ExcelWriter();
+            reader = new ExcelReader();
+            writer = new ExcelWriter();
 
             // Collected data
             List<RowData> data = reader.ReadWorkBook(FileOpenPath, GetCellMap(cellMaps)); // get data based on observable cell map list
@@ -162,10 +156,12 @@ namespace ExcelConversionApp
                 }
                 else
                 { 
-                    writer.CreateWorkBook(FileWritePath, "ConvertedExcelSheet" , data);
+                    writer.CreateWorkBook(FileWritePath, "ConvertedExcelFile" , data);
                 }
-                
             }
+
+            reader = null;
+            writer = null;
         }
 
         public void AddCellMap(CellMap map)
@@ -199,6 +195,21 @@ namespace ExcelConversionApp
             }
 
             return tmpList;
+        }
+
+        /// <summary>
+        /// This checks if the file paths for reading and writing are set 
+        /// </summary>
+        /// <returns>Returns true if both paths are set</returns>
+        public bool FilePathsAreSet()
+        {
+            if (FileOpenPath == "None Selected" || FileWritePath == "None Selected")
+            {
+                Console.WriteLine("A file path is not set.");
+                return false;
+            }
+
+            return true;
         }
     }
 
