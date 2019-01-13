@@ -63,8 +63,8 @@ namespace ExcelConversionApp
     {
 
         // int respresents the cellId to place in and the value is the value of the newCell
-        public List<CellStruct> rowCellData = new List<CellStruct>();
-        public List<CellCoords> rowCoords = new List<CellCoords>();
+        public List<CellData> rowCellData = new List<CellData>();
+        public List<CellCoordinates> rowCoords = new List<CellCoordinates>();
 
 
         /*
@@ -78,10 +78,10 @@ namespace ExcelConversionApp
         /// <param name="column"></param>
         /// <param name="row"></param>
         /// <param name="value"></param>
-        public void AddString(int column, int row, string value)
+        public void AddStringValue(int column, int row, string value)
         {
-            rowCellData.Add(new CellStruct(value));
-            rowCoords.Add(new CellCoords(column, row));
+            rowCellData.Add(new CellData(value));
+            rowCoords.Add(new CellCoordinates(column, row));
         }
 
         /// <summary>
@@ -90,10 +90,10 @@ namespace ExcelConversionApp
         /// <param name="column"></param>
         /// <param name="row"></param>
         /// <param name="value"></param>
-        public void AddNumber(int column, int row, double value)
+        public void AddNumericValue(int column, int row, double value)
         {
-            rowCellData.Add(new CellStruct(value));
-            rowCoords.Add(new CellCoords(column, row));
+            rowCellData.Add(new CellData(value));
+            rowCoords.Add(new CellCoordinates(column, row));
         }
     }
 }

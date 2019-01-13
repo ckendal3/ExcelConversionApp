@@ -29,6 +29,8 @@ namespace ExcelConversionApp
                // list of all data to keep
             List<RowData> dataList = new List<RowData>();
 
+            CellMap[] mapArray = cellMaps.ToArray();
+
             // row data
             RowData rowData;
 
@@ -37,6 +39,7 @@ namespace ExcelConversionApp
 
 
             IRow tmpRow;
+
             // for every row (contact) in the sheet
             for (int i = 0; i < sheet.LastRowNum + 1; i++)
             {
@@ -47,33 +50,26 @@ namespace ExcelConversionApp
                 // temporary row handler
                 tmpRow = sheet.GetRow(i);
 
-                // for every map, get the appropriate data
-                foreach (CellMap map in cellMaps)
+                // for every mapping, add the data
+                for(int j = 0; j < mapArray.Length; j++)
                 {
-                    // try to get string value
-                    try
+                    if (tmpRow.GetCell(mapArray[i].ImportedCellId).GetType() == typeof(string))
                     {
-                        // add this STRING data
-                        rowData.AddString(map.ConversionCellId, tmpRow.GetCell(map.ImportedCellId).StringCellValue);
+                        Console.WriteLine("Value: String");
+                        rowData.AddString(mapArray[i].ConversionCellId, tmpRow.GetCell(mapArray[i].ImportedCellId).StringCellValue);
                     }
-                    catch (Exception)
+                    else if (tmpRow.GetCell(mapArray[i].ImportedCellId).GetType() == typeof(double))
                     {
-                        Console.WriteLine("String exception caught");
-                        // didn't get string value, try numeric data
-                        try
-                        {
-                            // add this NUMERIC data as a long
-                            rowData.AddNumber(map.ConversionCellId, tmpRow.GetCell(map.ImportedCellId).NumericCellValue);
-                        }
-                        catch (Exception)
-                        {
-
-                            // go to next object
-                            //newData.stringDict.Add(map.ConversionCellId, "Exception");
-                            rowData.AddString(map.ConversionCellId, "Exception");
-                        }
-                    }   
+                        Console.WriteLine("Value: Numeric");
+                        rowData.AddNumber(mapArray[i].ConversionCellId, tmpRow.GetCell(mapArray[i].ImportedCellId).NumericCellValue);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Value: Exception");
+                        rowData.AddString(mapArray[i].ConversionCellId, "Exception");
+                    }
                 }
+
                 dataList.Add(rowData);
             }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExcelConversionApp
 {
-    public struct CellStruct
+    public struct CellData
     {
         /// <summary>
         /// This is the cell type used for determing what type of information is stored
@@ -27,7 +27,7 @@ namespace ExcelConversionApp
         /// Initialize the Cell's String Value
         /// </summary>
         /// <param name="value"></param>
-        public CellStruct(string value)
+        public CellData(string value)
         {
             cellType = ECellType.String;
             stringValue = value;
@@ -39,7 +39,7 @@ namespace ExcelConversionApp
         /// Initialize the Cell's Numerical Value
         /// </summary>
         /// <param name="value"></param>
-        public CellStruct(double value)
+        public CellData(double value)
         {
             cellType = ECellType.Numerical;
             numericalValue = value;
@@ -53,7 +53,7 @@ namespace ExcelConversionApp
     /// <summary>
     /// Cell coordinate holder. X = Column, Y = Row
     /// </summary>
-    public struct CellCoords
+    public struct CellCoordinates
     {
         /// <summary>
         /// This holds the column location
@@ -62,10 +62,10 @@ namespace ExcelConversionApp
 
         /// <summary>
         /// This holds the row location
-        /// </summary>
+        /// </summary> 
         int y;
 
-        public CellCoords(int column, int row)
+        public CellCoordinates(int column, int row)
         {
             x = column;
             y = row;
