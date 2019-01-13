@@ -13,22 +13,20 @@ namespace ExcelConversionApp
     {
         public List<RowData> ReadWorkBook(string path, List<CellMap> cellMaps)
         {
-
             try
             {
                 FileStream file = File.OpenRead(path);
             }
             catch (Exception)
             {
-                Console.WriteLine("File is open, please close it.");
+                Console.WriteLine("File is open, you must close it.");
                 return null;
             }
-                
 
-
-               // list of all data to keep
+            // list of all data to keep
             List<RowData> dataList = new List<RowData>();
 
+            // create an array 
             CellMap[] mapArray = cellMaps.ToArray();
 
             // row data
@@ -50,23 +48,23 @@ namespace ExcelConversionApp
                 // temporary row handler
                 tmpRow = sheet.GetRow(i);
 
-                // for every mapping, add the data
+                // for every mapping, add the data for this row
                 for(int j = 0; j < mapArray.Length; j++)
                 {
                     if (tmpRow.GetCell(mapArray[i].ImportedCellId).GetType() == typeof(string))
                     {
-                        Console.WriteLine("Value: String");
                         rowData.AddString(mapArray[i].ConversionCellId, tmpRow.GetCell(mapArray[i].ImportedCellId).StringCellValue);
+                        Console.WriteLine("Value: String");
                     }
                     else if (tmpRow.GetCell(mapArray[i].ImportedCellId).GetType() == typeof(double))
                     {
-                        Console.WriteLine("Value: Numeric");
                         rowData.AddNumber(mapArray[i].ConversionCellId, tmpRow.GetCell(mapArray[i].ImportedCellId).NumericCellValue);
+                        Console.WriteLine("Value: Numeric");
                     }
                     else
                     {
-                        Console.WriteLine("Value: Exception");
                         rowData.AddString(mapArray[i].ConversionCellId, "Exception");
+                        Console.WriteLine("Value: Exception");
                     }
                 }
 

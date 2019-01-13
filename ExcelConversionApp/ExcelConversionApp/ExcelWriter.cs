@@ -60,6 +60,38 @@ namespace ExcelConversionApp
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sheet"></param>
+        /// <param name="rowId"></param>
+        /// <param name="data"></param>
+        public void GenerateRowV2(ISheet sheet, int rowId, RowData data)
+        {
+            ICell tmpCell;
+            IRow tmpRow = sheet.CreateRow(rowId);
+
+            //*********NEEDS TO USE THE LIST OF CellData and CellCoordinates
+
+            Dictionary<int, string> stringCells = data.stringDict;
+            Dictionary<int, long> numericCells = data.numericDict;
+
+            for (int i = 0; i < data.numericDict.Count; i++)
+            {
+                tmpCell = tmpRow.CreateCell(i);
+                tmpCell.SetCellType(CellType.String);
+                tmpCell.SetCellValue(stringCells[i]);
+            }
+
+            for (int i = 0; i < data.numericDict.Count; i++)
+            {
+                tmpCell = tmpRow.CreateCell(i);
+                tmpCell.SetCellType(CellType.Numeric);
+                tmpCell.SetCellValue(numericCells[i]);
+            }
+
+        }
+
+        /// <summary>
         /// Filter out any unneeded characters in the path
         /// </summary>
         /// <param name="path"></param>
