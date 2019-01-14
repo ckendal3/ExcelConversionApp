@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NPOI.SS.UserModel;
 
 namespace ExcelConversionApp
 {
@@ -11,7 +7,7 @@ namespace ExcelConversionApp
         /// <summary>
         /// This is the cell type used for determing what type of information is stored
         /// </summary>
-        ECellType cellType;
+        CellType cellType;
 
         /// <summary>
         /// The cell's string value
@@ -29,7 +25,7 @@ namespace ExcelConversionApp
         /// <param name="value"></param>
         public CellData(string value)
         {
-            cellType = ECellType.String;
+            cellType = CellType.String;
             stringValue = value;
 
             numericalValue = -1;
@@ -41,7 +37,7 @@ namespace ExcelConversionApp
         /// <param name="value"></param>
         public CellData(double value)
         {
-            cellType = ECellType.Numerical;
+            cellType = CellType.Numeric;
             numericalValue = value;
 
             stringValue = "";
@@ -71,12 +67,4 @@ namespace ExcelConversionApp
             y = row;
         }
     }
-
-
-    public enum ECellType
-    {
-        Numerical,
-        String,
-        Special
-    };
 }
