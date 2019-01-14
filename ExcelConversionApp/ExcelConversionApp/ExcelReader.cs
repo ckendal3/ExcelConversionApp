@@ -39,31 +39,41 @@ namespace ExcelConversionApp
             IRow tmpRow;
 
             // for every row (contact) in the sheet
-            for (int i = 0; i < sheet.LastRowNum + 1; i++)
+            for (int i = sheet.FirstRowNum; i < sheet.LastRowNum + 1; i++)
             {
-                Console.WriteLine("Reader is at iteration: " + i);
-
                 rowData = new RowData();
 
                 // temporary row handler
                 tmpRow = sheet.GetRow(i);
 
-                // for every mapping, add the data for this row
-                for(int j = 0; j < mapArray.Length; j++)
+                if (tmpRow == null)
                 {
-                    if (tmpRow.GetCell(mapArray[i].ImportedCellId).GetType() == typeof(string))
+                    Console.WriteLine("Row is null");
+                    continue;
+                }
+
+                // for every mapping, add the data for this row
+                for (int j = 0; j < mapArray.Length; j++)
+                {
+                    if (tmpRow.GetCell(mapArray[j].ImportedCellId) == null)
                     {
-                        rowData.AddString(mapArray[i].ConversionCellId, tmpRow.GetCell(mapArray[i].ImportedCellId).StringCellValue);
+                        Console.WriteLine("Cell is null");
+                        continue;
+                    }
+
+                    if (tmpRow.GetCell(mapArray[j].ImportedCellId).CellType == CellType.String)
+                    {
+                        rowData.AddString(mapArray[j].ConversionCellId, tmpRow.GetCell(mapArray[j].ImportedCellId).StringCellValue);
                         Console.WriteLine("Value: String");
                     }
-                    else if (tmpRow.GetCell(mapArray[i].ImportedCellId).GetType() == typeof(double))
+                    else if (tmpRow.GetCell(mapArray[j].ImportedCellId).CellType == CellType.Numeric )
                     {
-                        rowData.AddNumber(mapArray[i].ConversionCellId, tmpRow.GetCell(mapArray[i].ImportedCellId).NumericCellValue);
+                        rowData.AddNumber(mapArray[j].ConversionCellId, tmpRow.GetCell(mapArray[j].ImportedCellId).NumericCellValue);
                         Console.WriteLine("Value: Numeric");
                     }
                     else
                     {
-                        rowData.AddString(mapArray[i].ConversionCellId, "Exception");
+                        rowData.AddString(mapArray[j].ConversionCellId, "Exception");
                         Console.WriteLine("Value: Exception");
                     }
                 }
