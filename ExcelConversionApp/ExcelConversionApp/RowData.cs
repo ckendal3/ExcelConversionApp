@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
+// TODO: When new struct CellData is implemented, use single list with coords and CellData probably
 namespace ExcelConversionApp
 {
     public class RowData

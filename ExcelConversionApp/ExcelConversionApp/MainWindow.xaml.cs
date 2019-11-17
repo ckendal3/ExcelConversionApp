@@ -12,6 +12,9 @@ using System.Windows.Controls;
  * 
  * 
  */
+
+// TODO: Replace Hardcoded converted file name
+// TODO: Offload a lot of code to separate classes
 namespace ExcelConversionApp
 {
     /// <summary>
@@ -19,13 +22,9 @@ namespace ExcelConversionApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        ExcelReader reader;
-        ExcelWriter writer;
-
         NotifyPropertyChange notifyPropertyChange = new NotifyPropertyChange();
 
         ObservableCollection<CellMap> cellMaps = new ObservableCollection<CellMap>();
-
 
         private string fileOpenPath = "None Selected";
         public string FileOpenPath
@@ -136,32 +135,23 @@ namespace ExcelConversionApp
         /// </summary>
         public void ParseFile()
         {      
-            reader = new ExcelReader();
-            writer = new ExcelWriter();
-
             // Collected data
-            List<RowData> data = reader.ReadWorkBook(FileOpenPath, GetCellMap(cellMaps)); // get data based on observable cell map list
+            RowData[] data = ExcelReader.ReadWorkBook(FileOpenPath, GetCellMapping(cellMaps)); // get data based on observable cell map list
 
-            if(data == null)
+            if(data == null || data.Length == 0)
             {
                 return;
             }
-            
-            // if there is data, write it to the new file with the input name
-            if(data.Count > 0)
+
+            if(!fileNameInput.Text.Equals(""))
             {
-                if(!fileNameInput.Text.Equals(""))
-                {
-                    writer.CreateWorkBook(FileWritePath, fileNameInput.Text, data);
-                }
-                else
-                { 
-                    writer.CreateWorkBook(FileWritePath, "ConvertedExcelFile" , data);
-                }
+                ExcelWriter.CreateWorkBook(FileWritePath, fileNameInput.Text, data);
+            }
+            else
+            {
+                ExcelWriter.CreateWorkBook(FileWritePath, "ConvertedExcelFile", data);
             }
 
-            reader = null;
-            writer = null;
         }
 
         public void AddCellMap(CellMap map)
@@ -185,16 +175,17 @@ namespace ExcelConversionApp
         /// </summary>
         /// <param name="observableList"></param>
         /// <returns></returns>
-        public List<CellMap> GetCellMap(ObservableCollection<CellMap> observableList)
+        public CellMap[] GetCellMapping(ObservableCollection<CellMap> observableList)
         {
-            List<CellMap> tmpList = new List<CellMap>();
+            int count = observableList.Count;
+            CellMap[] tmpArray = new CellMap[count];
 
-            foreach (CellMap map in observableList)
+            for (int i = 0; i < count; i++)
             {
-                tmpList.Add(map);
+                tmpArray[i] = observableList[i];
             }
 
-            return tmpList;
+            return tmpArray;
         }
 
         /// <summary>
@@ -203,9 +194,15 @@ namespace ExcelConversionApp
         /// <returns>Returns true if both paths are set</returns>
         public bool FilePathsAreSet()
         {
-            if (FileOpenPath == "None Selected" || FileWritePath == "None Selected")
+            if (FileOpenPath == "None Selected")
             {
-                Console.WriteLine("A file path is not set.");
+                Console.WriteLine("The file to open is not set.");
+                return false;
+            }
+
+            if(FileWritePath == "None Selected")
+            {
+                Console.WriteLine("The file location to save to is not set.");
                 return false;
             }
 

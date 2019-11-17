@@ -1,5 +1,8 @@
 ﻿using NPOI.SS.UserModel;
+using System;
 
+// TODO: Implement efficient CellData Type to prevent so many different checks/exceptions
+// ---- This struct is holding way too much data. Should look into interface with self-return value ('dynamic casting')
 namespace ExcelConversionApp
 {
     public struct CellData
@@ -67,4 +70,39 @@ namespace ExcelConversionApp
             y = row;
         }
     }
+
+    public interface ICellData<T>  where T : struct
+    {
+        int Index { get; set; }
+
+        Type GetCellType(out T data);
+    }
+
+    public struct CellString : ICellData<CellString>
+    {
+        public int Index { get; set; }
+        public string Value;
+
+        public Type GetCellType(out CellString data)
+        {
+            data = this;
+
+            return typeof(CellString);
+        }
+    }
+
+    public struct CellNumeric : ICellData<CellNumeric>
+    {
+        public int Index { get; set; }
+        public long Value;
+
+        public Type GetCellType(out CellNumeric data)
+        {
+            data = this;
+
+            return typeof(CellNumeric);
+        }
+    }
+
+
 }

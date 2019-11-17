@@ -9,20 +9,20 @@ namespace ExcelConversionApp
     /// <summary>
     /// Creates the new file and populates it with the directed information.
     /// </summary>
-    public class ExcelWriter
+    public static class ExcelWriter
     {
-        public void CreateWorkBook(string path, string fileName, List<RowData> inData)
+        public static void CreateWorkBook(string path, string fileName, RowData[] inData)
         {
             IWorkbook workbook = new XSSFWorkbook();
             ISheet s1 = workbook.CreateSheet("Sheet1");
 
             // For every element of data - create a new row
-            for (int i = 0; i < inData.Count; i++)
+            for (int i = 0; i < inData.Length; i++)
             {
                 GenerateRow(s1, i, inData[i]);
             }
 
-            using (var fs = File.Create(CreateSavePath(path, fileName) + ".xlsx"))
+            using (var fs = File.Create(FilterCreatePath(path, fileName) + ".xlsx"))
             {
                 workbook.Write(fs);
                 fs.Close();
@@ -35,11 +35,10 @@ namespace ExcelConversionApp
         /// <param name="sheet"></param>
         /// <param name="rowId"></param>
         /// <param name="data"></param>
-        public void GenerateRow(ISheet sheet, int rowId, RowData data)
+        public static void GenerateRow(ISheet sheet, int rowId, RowData data)
         {
             ICell tmpCell;
             IRow tmpRow = sheet.CreateRow(rowId);
-
 
             // For every string data piece - create a corresponding cell
             foreach (KeyValuePair<int, string> stringCell in data.stringDict)
@@ -65,7 +64,7 @@ namespace ExcelConversionApp
         /// <param name="sheet"></param>
         /// <param name="rowId"></param>
         /// <param name="data"></param>
-        public void GenerateRowV2(ISheet sheet, int rowId, RowData data)
+        public static void GenerateRowV2(ISheet sheet, int rowId, RowData data)
         {
             ICell tmpCell;
             IRow tmpRow = sheet.CreateRow(rowId);
@@ -96,7 +95,7 @@ namespace ExcelConversionApp
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public string CreateSavePath(string path, string fileName)
+        public static string FilterCreatePath(string path, string fileName)
         {
             int index = path.LastIndexOf('\\');
 
